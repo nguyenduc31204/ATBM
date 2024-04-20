@@ -1,0 +1,278 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+
+    box-sizing: border-box;
+    font-family:'Montserrat', sans-serif ;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: hsla(0, 100%, 50%, 1);
+    background-image:
+        radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
+}
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .button-show{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+.container .button-show button:hover{
+    transform: matrix(42px);
+    background-color: darkkhaki;
+}
+
+.container .button-show button{
+    background-color: transparent;
+    font-size: 25px;
+    font-weight: 600;
+    padding: 5px 15px;
+    border: 2px solid #977272;
+    border-radius: 13px;
+    transition: all 0.3s ease;
+}
+
+
+.container .tao-khoa{
+    border: 3px solid #000;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 0 30px 20px 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 40%;
+    height: 70%;
+    
+}
+
+.container .tao-khoa.an{
+    display: none;
+}
+
+.container .chu-ky{
+    border: 3px solid #000;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 0 30px 20px 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 40%;
+    display: none;
+}
+
+.container .chu-ky.show{
+    display: block;
+}
+.container .kiem-tra.show{
+    display: block;
+}
+
+.container .kiem-tra{
+    border: 3px solid #000;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 50px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 40%;
+    display: none;
+}
+.tao-khoa .title,
+.chu-ky .title,
+.kiem-tra .title{
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.tao-khoa .input-tao{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border: none;
+}
+
+.tao-khoa .input-tao .lab{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+    
+}
+
+.tao-khoa .input-tao .lab p{
+    font-size: 16px;
+    font-weight: 600;
+    max-width: 70px;
+}
+
+.tao-khoa .input-tao .lab input:focus,
+.chu-ky .lab input:focus{
+    outline: 0;
+}
+
+.tao-khoa .input-tao .lab input{
+    padding: 10px;
+    border: 1px solid #977979;
+    border-radius: 20px;
+    background-color: transparent;
+    width: 70%;
+}
+
+input::placeholder{
+    color: #000;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.tao-khoa #beta{
+    border: 2px solid #977272;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.tao-khoa .nutClick{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.tao-khoa button:hover{
+    background-color: chartreuse;
+}
+
+.tao-khoa button{
+    text-align: center;
+    padding: 10px 40px;
+    width: 49%;
+    height: 50px;
+    color: #000;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.tao-khoa .khoa p{
+    font-size: 22px;
+    font-weight: 500;
+    border: 1px solid #977272;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.chu-ky{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: 70%;
+}
+
+.chu-ky .title{
+    padding: 0;
+
+}
+
+.chu-ky .lab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chu-ky .lab p{
+    font-size: 17px;
+    font-weight: 500;
+    max-width: 80px;
+}
+
+.chu-ky .lab input{
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid #977272;
+    background-color: transparent;
+    width: 70%;
+}
+
+.chu-ky .nut-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+}
+
+.chu-ky .nut-btn button:hover{
+    background-color: #4ad128;
+}
+
+.chu-ky .nut-btn button{
+    width: 48%;
+    padding: 15px ;
+    background-color: transparent;
+    color: #000;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.chu-ky .out-res #gama,
+.chu-ky .out-res #xicma{
+    border: 2px solid #4f3f3f;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.kiem-tra .inner-chu-ky .item p{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.kiem-tra .inner-chu-ky{
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.kiem-tra button:hover{
+    background-color: wheat;
+}
+
+.kiem-tra button{
+    padding: 12px 50px;
+    background-color: transparent;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+
+.kiem-tra h2{
+    border: 2px solid #4f3f3f;
+    border-radius: 20px;
+    padding: 20px;
+}

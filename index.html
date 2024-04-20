@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./demo/style.css">
+    <title>Create Key</title>
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="tao-khoa" id="tao-khoa">
+            <div class="title">
+                <span>Tạo Khóa</span>
+            </div>
+    
+            <div class="tao-khoa-1">
+                
+                <div class="input-tao">
+                    <div class="lab">
+                        <p>Nhập a:</p>
+                        <input type="number" id="so-a" placeholder="Nhập vào số a">
+                    </div>
+                    <div class="lab">
+                        <p>Nhập alpha:</p>
+                        <input type="number" id="so-alpha" placeholder="Nhập vào số alpha">
+                    </div>
+                    <div class="lab">
+                        <p>Nhập p:</p>
+                        <input type="number" id="so-p" placeholder="Nhập vào số p">
+                    </div>
+    
+                </div>
+                <p id="beta">beta: </p>
+                <div class="nutClick">
+                    <button onclick="beta()">Tạo khóa</button>
+                    <button >Reset</button>
+                </div>
+                <div class="khoa">
+                    <p id="kpub">key pulic: </p>
+                    <p id="kpr">key private: </p>
+                    <div class="hien">
+                        <button id="res">Hiện Key pri</button>
+                        <button id="res2">Ẩn key pri</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="chu-ky" id="chu-ky">
+            <div class="title">
+                <p>Thực hiện ký</p>
+            </div>
+            <div class="nhap-chu">
+                <div class="lab">
+                    <p>Nhập số K: </p>
+                    <input type="number" id="k" placeholder="Nhập vào số K">
+                </div>
+                <div class="lab">
+                    <p>Nhập bản rõ x: </p>
+                    <input type="number" id="brx" placeholder="Nhập vào bản rõ X">
+                </div>
+            </div>
+            <div class="nut-btn">
+                <button onclick="xicmal()">Ký</button>
+                
+            </div>
+            <div class="out-res">
+                <div class="item">
+                    <p>Garmal</p>
+                    <p id="gama"> </p>
+                </div>
+                <div class="item">
+                    <p>Xicmal</p>
+                    <p id="xicma"> </p>
+                </div>
+                
+                
+            </div>
+        </div>
+    
+        <div class="kiem-tra" id="kiem-tra">
+            <div class="title">
+                <p>Kiểm tra</p>
+            </div>
+            
+            <div class="inner-chu-ky">
+                <div class="item">
+                    <p id="inbeta">Beta: </p>
+                </div>
+                <div class="item">
+                    <p id="ingama">Garmal: </p>
+                </div>
+                <div class="item">
+                    <p id="alpha">Alpha: </p>
+                </div>
+                <div class="item">
+                    <p id="inxicma">Xicmal: </p>
+                </div>
+            </div>
+            <button onclick="check()">Kiểm Tra</button>
+            <h2 id="chk">kết quả</h2>
+            
+        </div>
+        <div class="button-show">
+            <button id="btn-taok">Tạo khóa</button>
+            <button id="btn-ky">Thực hiện ký</button>
+            <button id="btn-check">Kiểm tra</button>
+        </div>
+    </div>
+    
+
+
+
+    <script src="./demo/script.js"></script>
+</body>
+</html>
