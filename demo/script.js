@@ -1,244 +1,240 @@
-function testInputtk(){
-    const soP = parseInt(document.querySelector("#so-p").value);
-    const soAlpha = parseInt(document.querySelector("#so-alpha").value);
-    const soA = parseInt(document.querySelector("#so-a").value);
-    if(isNaN(soA) || isNaN(soAlpha) || isNaN(soP)){
-        console.log(alert("Vui lòng nhập đủ dữ liệu!!"));
-    }
-}
+const chuyen = document.querySelector(".chuyen");
+const taokhoa = document.querySelector("#taokhoa");
+const ky = document.querySelector("#btnky");
+const ktra = document.querySelector("#btnktra");
+const fileInput = document.getElementById('file1');
+const textArea = document.getElementById('inputky');
+const fileInput2 = document.getElementById('file2');
+const textArea2 = document.getElementById('inputktra');
+const fileInput3 = document.getElementById('fileck');
+const textArea3 = document.getElementById('vanbanky');
+const textArea4 = document.getElementById('vanbanktra');
+const downloadButton = document.querySelector('.download');
 
-function testInputky(){
-    const soK = parseInt(document.querySelector("#k").value);
-    const x = parseInt(document.querySelector("#brx").value);
-    if(isNaN(soK) || isNaN(x)){
-        console.log(alert("Vui lòng nhập đủ dữ liệu!!"));
-    }
-}
+//download
+downloadButton.addEventListener('click', () => {
+    const content = textArea3.innerHTML;
+    const fileName = 'chuKy.txt'; 
+    const file = new File([content], fileName, {
+      type: content.type
+    });
+  
+    saveAs(file);
+  });
 
-function isprime(nump) {
-    if(nump < 2) return false;
-    for(let i = 2; i <= Math.sqrt(nump); i++){
-        if(nump % i === 0){
+
+  
+fileInput.addEventListener('change', (event) => {
+    const reader = new FileReader();
+  
+    reader.onload = (e) => {
+      textArea.value = e.target.result;
+    };
+  
+    reader.readAsText(event.target.files[0]);
+  });
+  
+  
+  
+  fileInput2.addEventListener('change', (event) => {
+    const reader = new FileReader();
+  
+    reader.onload = (e) => {
+      textArea2.value = e.target.result;
+    };
+  
+    reader.readAsText(event.target.files[0]);
+  });
+  
+  fileInput3.addEventListener('change', (event) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        textArea4.innerHTML = e.target.result;
+      };
+      reader.readAsText(event.target.files[0]);
+    });
+  
+  ky.addEventListener('click', function () { 
+      var x = document.querySelector("#inputky").value; 
+      tinhXicma(x);
+  });
+
+//KIỂM TRA PRIME
+function checkPri(num){
+    if(num < 2) return false;
+    for(let i = 2; i <= Math.sqrt(num); i++){
+        if(num % i == 0){
             return false;
         }
     }
     return true;
 };
 
-function checkP(nump){
-    if(!isprime(nump)){
-        console.log(alert("Số P phải là SNT !!!"));
+chuyen.addEventListener('click', function () {  
+    document.querySelector("#vanbanktra").innerHTML = document.querySelector("#xicma").value;
+    document.querySelector("#inputktra").value = document.querySelector("#inputky").value;
+});
+
+
+//KIỂM TRA GCD
+function gCD(p, k) {  
+    let du = 1;
+    while(du != 0){
+        du = p % k;
+        p = k;
+        k = du;
     }
+    return p;
 };
 
-function chuyenNhiPhan(num){
-    let arr = [];
-    let tmp = 0;
-    while(num > 0){
-        tmp = num % 2;
-        num = Math.floor(num / 2);
-        arr.push(tmp);
+// RANDOM KHÓA K
+taokhoa.addEventListener("click", function(){
+    let alpha = Math.floor(Math.random() * 1000000);
+    document.querySelector("#anpha").value = alpha;
+    var sp = Math.floor(Math.random() * 1000000);
+    var sk = Math.floor(Math.random() * 1000000);
+    while(!checkPri(sp)){
+        sp = Math.floor(Math.random() * 1000000);
     }
-    return arr;
-};
+    document.querySelector("#p").value = sp;
+    while(gCD(sk, (sp - 1)) != 1){
+        sk = Math.floor(Math.random() * sp) - 2;
+    }
+    var sa = Math.floor(Math.random() * sp) - 2;
+    document.querySelector("#a").value = sa;
+    document.querySelector("#k").value = sk;
+    var result = binhPhuongVoiNhan(sa, alpha, sp);
+    document.getElementById('beta').value = result;
+});
 
 
 function binhPhuongVoiNhan(num, x, y) {
-    const tinh = chuyenNhiPhan(num);
+    const tinh = num.toString(2);
     let p = 1;
-    for(let i = tinh.length - 1; i >= 0; i--){
+    for(let i = 0; i < tinh.length; i++){
+        p = (p * p) % y;
         if(tinh[i] == 1){
-            p = p * p;
-            p = p % y;
             p = p * x;
-            p = p % y;
-        }
-        else{
-            p = p * p;
             p = p % y;
         }
     }
     return p;
 };
 
-
-
-
-function beta(){
-    const soP = parseInt(document.querySelector("#so-p").value);
-    const soA = parseInt(document.querySelector("#so-a").value);
-    const soAlpha = parseInt(document.querySelector("#so-alpha").value);
-    console.log(testInputtk());
-    console.log(checkP(soP));
-    var result = binhPhuongVoiNhan(soA, soAlpha, soP);
-    
-    document.querySelector("#beta").innerHTML ="Beta: " +  result;
-    document.querySelector("#kpub").innerHTML = "Khoa pulic: {" + soP + ";  " + soAlpha + ";  " + result + "}";
-    document.querySelector("#kpr").innerHTML = "Khoa private: **********";
-    
-};
-
+//OCLIT
 function oClit (k, p) {
-    let i = 2;
-    let r = [];
-    r.push(p);
-    r.push(k);
-    r[2] = p - k*(Math.floor(p / k));
-    const t = [];
-    let s = [];
-    t[0] = 0;
-    t[1] = 1;
-    s[0] = 1;
-    s[1] = 0;
-    let q = [];
-    q[1] = Math.floor(r[0] / r[0 + 1]);
-    q[2] = Math.floor(r[1] / r[1 + 1]);
-    while(r[i] > 1){       
-        r[i] = r[i - 2] - r[i - 1] *(Math.floor(r[i - 2] / r[i - 1]));
-        r[i + 1] = r[i - 1] - r[i] *(Math.floor(r[i - 1] / r[i]));
-        q[i + 1] = Math.floor(r[i ] / r[i + 1]);
-        s[i] = s[i - 2] - q[i - 1]*  s[i - 1];
-        t[i] = t[i - 2] - q[i - 1]* t[i - 1];
-        i++;
+    let ri = p;
+    let rin = k;
+    let tst = 0, ts = 1;
+    let tin;
+    let tmp;
+    let gtmp;
+    while(rin > 1){
+        tin = tst - ts*Math.floor(ri / rin);
+        tmp = rin;
+        rin = ri - rin*Math.floor(ri / rin);
+        ri = tmp;
+        gtmp = ts;
+        ts = tin;
+        tst = gtmp;
     }
-    t[i] = t[i - 2] - q[i - 1]* t[i - 1];
-    if(t[i] < 0){
-        t[i] = t[i] + p;
+    if(tin < 0){
+        tin = tin + p;
     }
-    return t[i];
+    return tin;
 };
 
-// function oClit (k, p) {
-//     let ri = p;
-//     let rin = k;
-//     let tst = 0, ts = 1;
-//     let tin;
-//     let tmp;
-//     let gtmp;
-//     while(rin > 1){
-//         tin = tst - ts*Math.floor(ri / rin);
-//          tmp = rin;
-//         rin = ri - rin*Math.floor(ri / rin);
-//         ri = tmp;
-//         gtmp = ts;
-//         ts = tin;
-//         tst = gtmp;
-//     }
-//     if(tin < 0){
-//         tin = tin + p;
-//     }
-//     return tin;
-// };
+// console.log(oClit(17, 23));
 
-// function gamMal(){
-//     const soP = parseInt(document.querySelector("#so-p").value);
-//     const soAlpha = parseInt(document.querySelector("#so-alpha").value);
-//     const soK = document.querySelector("#k").value;
-//     const result = binhPhuongVoiNhan(soK, soAlpha, soP);
-//     document.querySelector("#gama").innerHTML = "gama: " + result;
-// };
 
-function xicmal() {  
-    const soP = parseInt(document.querySelector("#so-p").value);
-    const soAlpha = parseInt(document.querySelector("#so-alpha").value);
-    const soA = parseInt(document.querySelector("#so-a").value);
+
+//TÍNH XICMA
+
+function tinhXicma(x){
+
+    const soAlpha = parseInt(document.querySelector("#anpha").value);
+    const soA = parseInt(document.querySelector("#a").value);
     const soK = parseInt(document.querySelector("#k").value);
-    const x = parseInt(document.querySelector("#brx").value);
+    const soP = parseInt(document.querySelector("#p").value);   
 
-    console.log(checkP(soP));
-    console.log(testInputky());
-    
-    const res = oClit(soK, (soP - 1));
+    const res = oClit(soK, (soP - 1)); 
     const gama = binhPhuongVoiNhan(soK, soAlpha, soP);
-    const res2 = x - soA * gama;
-    let result = res2*res % (soP - 1);
-    if(result < 0){
-        result = result + (soP - 1);
+
+    document.querySelector("#gama").value = gama;
+    var cky = [];
+    const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
+    var hash1 = [];
+    let n = 0;
+    for(let i = 0; i < 4; i++){
+        hash1.push(hash.slice(n, n + 8));
+        n += 8;
     }
-    document.querySelector("#gama").innerHTML = "Gamal: " + gama;
-    document.querySelector("#xicma").innerHTML = "Xicma: " + result;
+    for(let i = 0; i< 4; i++){
+        console.log(parseInt(hash1[i], 16));
+    }
+    for(let i = 0; i < hash1.length; i++){
+        let res2 = (parseInt(hash1[i], 16) - soA * gama) % (soP - 1);
+        let result = ((res2*res) % (soP - 1));
+        if(result < 0){
+            result = result + (soP - 1);
+        };
+        cky.push(result); 
+    }
+
+    var t = cky.map( item =>item.toString()).join(', ');
+    document.querySelector("#xicma").value = t;
+    console.log(t);
+    document.querySelector("#vanbanky").innerHTML = t;
 };
 
-function check() {
-    const soP = parseInt(document.querySelector("#so-p").value);
-    const soAlpha = parseInt(document.querySelector("#so-alpha").value);
-    const soA = parseInt(document.querySelector("#so-a").value);
-    const soK = parseInt(document.querySelector("#k").value);
-    const x = parseInt(document.querySelector("#brx").value);
+
+
+ktra.addEventListener('click', function () {  
+    var x = document.querySelector("#inputktra").value; 
+    ktrak(x);
+});
 
 
 
-    const res = oClit(soK, (soP - 1));
-    const gama = binhPhuongVoiNhan(soK, soAlpha, soP);
-    const tinh = x - soA * gama;
-    let xicma = tinh*res % (soP - 1);
-    if(xicma < 0){
-        xicma = xicma + (soP - 1);
+function ktrak(x) {
+    const soAlpha = parseInt(document.querySelector("#anpha").value);
+    const soA = parseInt(document.querySelector("#a").value);
+    const soP = parseInt(document.querySelector("#p").value);
+
+    const beta = binhPhuongVoiNhan(soA, soAlpha, soP);
+    const gama = parseInt(document.querySelector("#gama").value);
+    const xicma = document.querySelector("#vanbanktra").innerHTML;
+    var xicm = [];
+    xicm = xicma.split(", ");
+    var end1= [];
+    var end2= [];
+    const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
+    var hash1 = [];
+    let n = 0;
+    for(let i = 0; i < 4; i++){
+        hash1.push(hash.slice(n, n + 8));
+        n += 8;
     }
-    var beta = binhPhuongVoiNhan(soA, soAlpha, soP);
-    console.log(beta);
-    const kq = binhPhuongVoiNhan(gama, beta, soP);
-    console.log(kq);
-    const kq2 =  binhPhuongVoiNhan(xicma, gama, soP);
-    console.log(xicma);
-    let endres = (kq * kq2) % soP;
-    let endres2 = binhPhuongVoiNhan(x, soAlpha, soP);
-    console.log(endres);
-    console.log(endres2);
-    var Result = true;
-    if(endres != endres2){
-        Result = false;
+
+    for(let i = 0; i < hash1.length; i++){
+        var and1 = binhPhuongVoiNhan(gama, beta, soP);
+        var and2 = binhPhuongVoiNhan(parseInt(xicm[i]), gama, soP);
+        let v1 = (and1 * and2) % soP;
+        end1.push(v1);
+        let v2 = binhPhuongVoiNhan(parseInt(hash1[i], 16), soAlpha , soP);
+        end2.push(v2);
+    };
+
+    let check = true;
+    for(let i = 0; i < 4; i++){
+        if(end1[i] != end2[i]){
+            check = false;
+        }
     }
-        document.querySelector("#inbeta").innerHTML ="Beta: " + beta;
-        document.querySelector("#ingama").innerHTML ="Gamal: " + gama;
-        document.querySelector("#alpha").innerHTML = "Alpha: " + soAlpha;
-        document.querySelector("#inxicma").innerHTML ="Xicma: " + xicma;
-        
-    if(Result){
-        document.querySelector("#chk").innerHTML = "Văn bản chưa bị sửa đổi!";
+    if(check){
+        document.querySelector("#thongbao").innerHTML = "Văn bản chưa bị sửa đổi."
     }
     else{
-        document.querySelector("#chk").innerHTML = "Văn bản đã bị sửa đổi!!!";
+        document.querySelector("#thongbao").innerHTML = "Văn bản đã bị sửa đổi."
     }
 };
-
-const btntk = document.querySelector("#btn-taok");
-const btnKy = document.querySelector("#btn-ky");
-const btncheck = document.querySelector("#btn-check");
-
-const taok = document.querySelector("#tao-khoa");
-const ky = document.querySelector("#chu-ky");
-const ktra = document.querySelector("#kiem-tra");
-
-btnKy.onclick = function(){
-    taok.classList.add("an");
-    ky.classList.add("show");
-    ktra.classList.remove("show");
-};
-
-btncheck.onclick = function(){
-    taok.classList.add("an");
-    ky.classList.remove("show");
-    ktra.classList.add("show");
-};
-
-btntk.onclick = function(){
-    taok.classList.remove("an");
-    ky.classList.remove("show");
-    ktra.classList.remove("show");
-};
-
-
-
-const hienThi = document.querySelector("#res");
-const an = document.querySelector("#res2");
-
-hienThi.onclick = function () {
-    const soA = parseInt(document.querySelector("#so-a").value);
-    document.querySelector("#kpr").innerHTML = "Khoa private: " + soA;
-};
-
-an.onclick = function () {
-    document.querySelector("#kpr").innerHTML = "Khoa private: ********";
-};
-
