@@ -11,6 +11,25 @@ const textArea3 = document.getElementById('vanbanky');
 const textArea4 = document.getElementById('vanbanktra');
 const downloadButton = document.querySelector('.download');
 
+
+ fileInput.addEventListener('change', function(event) {
+    console.log(fileInput.type);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+                    .then(function(result) {
+                        document.getElementById('inputky').value = result.value.replace(/<\/?[^>]+(>|$)/g, "");
+                    })
+                    .catch(function(err) {
+                        console.error('Error reading DOCX file:', err);
+                        document.getElementById('inputky').value = 'Error reading DOCX file.';
+                    });
+            };
+            reader.readAsArrayBuffer(event.target.files[0]);
+        });
+
+
 //download
 downloadButton.addEventListener('click', () => {
     const content = textArea3.innerHTML;
@@ -22,16 +41,21 @@ downloadButton.addEventListener('click', () => {
     saveAs(file);
   });
 
-
+function isTxtFile(file) {
+    return file.name.toLowerCase().endsWith('.txt');
+}
   
 fileInput.addEventListener('change', (event) => {
-    const reader = new FileReader();
+    if(isTxtFile(event.target.files[0])){
+        const reader = new FileReader();
   
-    reader.onload = (e) => {
-      textArea.value = e.target.result;
-    };
-  
-    reader.readAsText(event.target.files[0]);
+        reader.onload = (e) => {
+          textArea.value = e.target.result;
+        };
+      
+        reader.readAsText(event.target.files[0]);
+    }
+    
   });
   
   
