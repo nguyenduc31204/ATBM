@@ -12,7 +12,10 @@ const textArea4 = document.getElementById('vanbanktra');
 const downloadButton = document.querySelector('.download');
 
 
+
  fileInput.addEventListener('change', function(event) {
+
+
     console.log(fileInput.type);
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -27,8 +30,25 @@ const downloadButton = document.querySelector('.download');
                     });
             };
             reader.readAsArrayBuffer(event.target.files[0]);
-        });
+});
 
+
+fileInput2.addEventListener('change', function(event) {
+    console.log(fileInput.type);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+                    .then(function(result) {
+                        document.getElementById('inputktra').value = result.value.replace(/<\/?[^>]+(>|$)/g, "");
+                    })
+                    .catch(function(err) {
+                        console.error('Error reading DOCX file:', err);
+                        document.getElementById('inputky').value = 'Error reading DOCX file.';
+                    });
+            };
+            reader.readAsArrayBuffer(event.target.files[0]);
+});
 
 //download
 downloadButton.addEventListener('click', () => {
@@ -61,11 +81,14 @@ fileInput.addEventListener('change', (event) => {
   
   
   fileInput2.addEventListener('change', (event) => {
-    const reader = new FileReader();
+    if(isTxtFile(event.target.files[0])){
+        const reader = new FileReader();
   
-    reader.onload = (e) => {
-      textArea2.value = e.target.result;
-    };
+        reader.onload = (e) => {
+        textArea2.value = e.target.result;
+        };
+    }
+    
   
     reader.readAsText(event.target.files[0]);
   });
@@ -78,10 +101,7 @@ fileInput.addEventListener('change', (event) => {
       reader.readAsText(event.target.files[0]);
     });
   
-  ky.addEventListener('click', function () { 
-      var x = document.querySelector("#inputky").value; 
-      tinhXicma(x);
-  });
+
 
 //KIỂM TRA PRIME
 function checkPri(num){
@@ -170,7 +190,10 @@ function oClit (k, p) {
 
 // console.log(oClit(17, 23));
 
-
+ky.addEventListener('click', function () { 
+    var x = document.querySelector("#inputky").value; 
+    tinhXicma(x);
+});
 
 //TÍNH XICMA
 
@@ -187,6 +210,7 @@ function tinhXicma(x){
     document.querySelector("#gama").value = gama;
     var cky = [];
     const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
+    document.querySelector("#vbBamKy").innerHTML = hash;
     var hash1 = [];
     let n = 0;
     for(let i = 0; i < 4; i++){
@@ -207,7 +231,6 @@ function tinhXicma(x){
 
     var t = cky.map( item =>item.toString()).join(', ');
     document.querySelector("#xicma").value = t;
-    console.log(t);
     document.querySelector("#vanbanky").innerHTML = t;
 };
 
@@ -219,6 +242,12 @@ ktra.addEventListener('click', function () {
 });
 
 
+function KtcKy() {  
+    const xicma = document.querySelector("#vanbanktra").innerHTML;
+    const ckyg = document.querySelector("#vanbanky").innerHTML;
+
+}
+
 
 function ktrak(x) {
     const soAlpha = parseInt(document.querySelector("#anpha").value);
@@ -228,11 +257,26 @@ function ktrak(x) {
     const beta = binhPhuongVoiNhan(soA, soAlpha, soP);
     const gama = parseInt(document.querySelector("#gama").value);
     const xicma = document.querySelector("#vanbanktra").innerHTML;
+    const ckyg = document.querySelector("#vanbanky").innerHTML;
+    console.log(ckyg);
+    var checkKy = false;
+    if(ckyg == xicma){
+        checkKy = true;
+    };
+
+    if(!checkKy){
+        document.querySelector("#thongbao").innerHTML = "chữ ký sai";
+        return;
+    }
+
+   
+
     var xicm = [];
     xicm = xicma.split(", ");
     var end1= [];
     var end2= [];
     const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
+    document.querySelector("#vbBamKtra").innerHTML = hash;
     var hash1 = [];
     let n = 0;
     for(let i = 0; i < 4; i++){
@@ -255,10 +299,11 @@ function ktrak(x) {
             check = false;
         }
     }
-    if(check){
-        document.querySelector("#thongbao").innerHTML = "Văn bản chưa bị sửa đổi."
+    document.querySelector("#thongbao").innerHTML = "Chữ ký đúng";
+    if(check){ 
+        document.querySelector("#thongbao").innerHTML += "\n-Văn bản chưa bị sửa đổi";
     }
     else{
-        document.querySelector("#thongbao").innerHTML = "Văn bản đã bị sửa đổi."
-    }
+        document.querySelector("#thongbao").innerHTML += "Văn bản đã bị sửa đổi"
+    } 
 };

@@ -98,7 +98,20 @@ h1{
     display: grid;
     gap: 10px;
 }
+.chuky{
 
+    width: 100%;
+
+}
 .num{
     display: none;
+}
+
+.outbam{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    right: 20px;
 }
