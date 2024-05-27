@@ -3,6 +3,7 @@ const taokhoa = document.querySelector("#taokhoa");
 const ky = document.querySelector("#btnky");
 const ktra = document.querySelector("#btnktra");
 const fileInput = document.getElementById('file1');
+// const textArea = document.getElementById('inpk');
 const textArea = document.getElementById('inputky');
 const fileInput2 = document.getElementById('file2');
 const textArea2 = document.getElementById('inputktra');
@@ -14,8 +15,6 @@ const downloadButton = document.querySelector('.download');
 
 
  fileInput.addEventListener('change', function(event) {
-
-
     console.log(fileInput.type);
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -30,8 +29,8 @@ const downloadButton = document.querySelector('.download');
                     });
             };
             reader.readAsArrayBuffer(event.target.files[0]);
+    
 });
-
 
 fileInput2.addEventListener('change', function(event) {
     console.log(fileInput.type);
@@ -44,22 +43,68 @@ fileInput2.addEventListener('change', function(event) {
                     })
                     .catch(function(err) {
                         console.error('Error reading DOCX file:', err);
-                        document.getElementById('inputky').value = 'Error reading DOCX file.';
+                        document.getElementById('inputktra').value = 'Error reading DOCX file.';
                     });
             };
             reader.readAsArrayBuffer(event.target.files[0]);
+    
 });
 
+
+// fileInput2.addEventListener('change', function(event) {
+//     console.log(fileInput.type);
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 const arrayBuffer = e.target.result;
+//                 mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+//                     .then(function(result) {
+//                         document.getElementById('inputktra').value = result.value.replace(/<\/?[^>]+(>|$)/g, "");
+//                     })
+//                     .catch(function(err) {
+//                         console.error('Error reading DOCX file:', err);
+//                         document.getElementById('inputky').value = 'Error reading DOCX file.';
+//                     });
+//             };
+//             reader.readAsArrayBuffer(event.target.files[0]);
+// });
+
 //download
-downloadButton.addEventListener('click', () => {
-    const content = textArea3.innerHTML;
-    const fileName = 'chuKy.txt'; 
-    const file = new File([content], fileName, {
-      type: content.type
-    });
-  
-    saveAs(file);
-  });
+downloadButton.addEventListener('click', async () => {
+    const fileType = 'txt'; // Loại tệp bạn muốn lưu, ví dụ: 'docx' hoặc 'txt'
+    
+    const content = document.getElementById('vanbanky').innerHTML;
+
+    try {
+        // Tạo một Blob từ nội dung
+        const blob = new Blob([content], {
+            type: fileType === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'text/plain;charset=utf-8'
+        });
+
+        // Mở hộp thoại lưu file
+        const handle = await window.showSaveFilePicker({
+            suggestedName: `chuky.${fileType}`,
+            types: [{
+                accept: {
+                    'text/plain': ['.txt']
+                }
+            }]
+        });
+
+        // Lấy quyền truy cập để ghi file
+        const writable = await handle.createWritable();
+
+        // Ghi nội dung vào file
+        await writable.write(blob);
+
+        // Đóng file
+        await writable.close();
+        
+        alert('File đã được lưu thành công!');
+    } catch (err) {
+        console.error(err);
+        alert('Đã xảy ra lỗi khi lưu file.');
+    }
+});
 
 function isTxtFile(file) {
     return file.name.toLowerCase().endsWith('.txt');
@@ -80,17 +125,18 @@ fileInput.addEventListener('change', (event) => {
   
   
   
+  
   fileInput2.addEventListener('change', (event) => {
     if(isTxtFile(event.target.files[0])){
         const reader = new FileReader();
   
         reader.onload = (e) => {
-        textArea2.value = e.target.result;
+          textArea2.value = e.target.result;
         };
+      
+        reader.readAsText(event.target.files[0]);
     }
     
-  
-    reader.readAsText(event.target.files[0]);
   });
   
   fileInput3.addEventListener('change', (event) => {
@@ -188,11 +234,10 @@ function oClit (k, p) {
     return tin;
 };
 
-// console.log(oClit(17, 23));
 
 ky.addEventListener('click', function () { 
-    var x = document.querySelector("#inputky").value; 
-    tinhXicma(x);
+    var m = document.querySelector("#inputky").value; 
+    tinhXicma(m);
 });
 
 //TÍNH XICMA
@@ -242,13 +287,6 @@ ktra.addEventListener('click', function () {
 });
 
 
-function KtcKy() {  
-    const xicma = document.querySelector("#vanbanktra").innerHTML;
-    const ckyg = document.querySelector("#vanbanky").innerHTML;
-
-}
-
-
 function ktrak(x) {
     const soAlpha = parseInt(document.querySelector("#anpha").value);
     const soA = parseInt(document.querySelector("#a").value);
@@ -268,8 +306,6 @@ function ktrak(x) {
         document.querySelector("#thongbao").innerHTML = "chữ ký sai";
         return;
     }
-
-   
 
     var xicm = [];
     xicm = xicma.split(", ");
@@ -304,6 +340,6 @@ function ktrak(x) {
         document.querySelector("#thongbao").innerHTML += "\n-Văn bản chưa bị sửa đổi";
     }
     else{
-        document.querySelector("#thongbao").innerHTML += "Văn bản đã bị sửa đổi"
+        document.querySelector("#thongbao").innerHTML += "\n-Văn bản đã bị sửa đổi"
     } 
 };

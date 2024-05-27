@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: rgba(189, 60, 116, 0.359);;
+}
+
 header{
     margin-top: 50px;
 }
@@ -25,7 +29,7 @@ h1{
 
 .btn{
     padding: 10px;
-    background-color: rgb(85, 85, 187);
+    background-color: rgb(189, 60, 116);
     color: #fff;
     font-size: 15px;
     border: 1px solid rgba(182, 36, 36, 0.133);
@@ -43,7 +47,7 @@ h1{
 }
 
 .fileinpt{
-    background-color:  rgb(85, 85, 187);
+    background-color:  rgb(189, 60, 116);
     padding: 10px;
     color: #fff;
     margin-left: 20px;
