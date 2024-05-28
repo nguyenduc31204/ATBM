@@ -4,8 +4,13 @@
     box-sizing: border-box;
 }
 
+.form{
+    border: 1px solid #ac9a9a;
+    border-radius: 6px;
+}
+
 body{
-    background-color: rgba(50, 54, 176, 0.244);
+    background-color: rgba(229, 28, 105, 0.244);
 }
 header{
     margin-top: 50px;
@@ -33,15 +38,14 @@ label{
 }
 
 .btn:hover{
-    background-color: rgb(57, 94, 187);
+    background-color: rgb(207, 57, 117);
     color: #fff;
 }
 
 .btn{
     padding: 10px;
-    background-color: rgb(52, 103, 233);
+    background-color: rgb(248, 79, 186);
     color: #fff;
-    border-radius: 6px;
     transition: all 0.3s ease;
     font-size: 15px;
     border: 1px solid rgba(182, 36, 36, 0.133);
@@ -59,7 +63,7 @@ label{
 }
 
 .fileinpt{
-    background-color:  rgb(52, 103, 233);
+    background-color:  rgb(248, 79, 186);
     padding: 10px;
     color: #fff;
     margin-left: 20px;
