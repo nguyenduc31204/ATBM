@@ -17,13 +17,16 @@
         <input id="xicma" type="text">
     </div>
     <header>
-        <h1>Kiểm tra chữ ký</h1>
-        <div class="taok">
-            <button class="btn" id="taokhoa">Tạo Khóa</button>
-        </div>
+        
     </header>
 
     <div class="container">
+        <div class="head1">
+            <h1>Tạo Khóa</h1>
+            <div class="taok">
+                <button class="btn" id="taokhoa">Tạo Khóa</button>
+            </div>
+        </div>
         <div class="form form1">
             <div class="title">
                 <h1>Phát sinh chữ ký</h1>
@@ -45,9 +48,9 @@
                 <p class="theky" id="vbBamKy" ></p>
                 </div>
                 <div class="out">
-                    
                     <label for="kiemtra">Chữ ký: </label>
-                    <p class="theky" id="vanbanky" ></p>
+                    <p class="thekya" id="vanbanky" ></p>
+                    <p id="anky"></p>
                     <div class="nut">
                         <button class="btn chuyen">Chuyển</button>
                         <button class="btn download">Lưu</button>
@@ -62,7 +65,7 @@
                 <h1>Kiểm tra chữ ký</h1>
             </div>
             <div class="inp">
-                <label for="inputKtra">Văn bản ký:</label>
+                <label for="inputKtra">Văn bản nhận:</label>
                 <textarea class="inpkta"  id="inputktra" placeholder="nhập vào văn bản"></textarea>
                 <label class="fileinpt" for="file2">file văn bản</label>
                 <input class="put" id="file2" type="file" accept=".txt, .docx">
@@ -70,7 +73,8 @@
             
             <div class="out">
                 <label  for="kiemtra">Chữ ký: </label>
-                <p class="theky" id="vanbanktra" ></p>
+                <p class="thekya" id="vanbanktra" ></p>
+                <p id="anktra"></p>
                 <label class="fileinpt" for="fileck">file chữ ký</label>
                 <input class="put" id="fileck" type="file">
                 
