@@ -303,9 +303,17 @@ function ktrak(x) {
     if(ckyg == xicma){
         checkKy = true;
     };
-
+    const vb = document.querySelector("#inputky").value;
+    const hashky = CryptoJS.MD5(vb).toString(CryptoJS.enc.Hex);
+    const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
     if(!checkKy){
         document.querySelector("#thongbao").innerHTML = "chữ ký sai";
+        if(hash ==hashky){
+            document.querySelector("#thongbao").innerHTML += "\n-Văn bản chưa bị sửa đổi!";
+        }
+        else{
+            document.querySelector("#thongbao").innerHTML += "\n-Văn bản đã bị sửa đổi!";
+        }
         return;
     }
 
@@ -313,7 +321,7 @@ function ktrak(x) {
     xicm = xicma.split(",");
     var end1= [];
     var end2= [];
-    const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
+    
     document.querySelector("#vbBamKtra").innerHTML = hash;
     var hash1 = [];
     let n = 0;
