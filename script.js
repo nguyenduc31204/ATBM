@@ -307,6 +307,7 @@ function ktrak(x) {
     const hashky = CryptoJS.MD5(vb).toString(CryptoJS.enc.Hex);
     const hash = CryptoJS.MD5(x).toString(CryptoJS.enc.Hex);
     if(!checkKy){
+        document.querySelector("#vbBamKtra").innerHTML = hash;
         document.querySelector("#thongbao").innerHTML = "chữ ký sai";
         if(hash ==hashky){
             document.querySelector("#thongbao").innerHTML += "\n-Văn bản chưa bị sửa đổi!";
